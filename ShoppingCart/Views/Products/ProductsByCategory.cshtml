@@ -8,18 +8,25 @@
 <div class="row">
     @foreach (var item in Model.Products)
     {
-    <div class="col-4">
-        <img src="~/media/products/@item.Image" class="img-fluid" alt="" />
-        <h4>@item.Name</h4>
-        <div>
-            @Html.Raw(item.Description)
+        <div class="col-4">
+            <img src="~/media/products/@item.Image" class="img-fluid" alt="" />
+            <h4>@item.Name</h4>
+            <div>
+                @Html.Raw(item.Description)
+            </div>
+            <p>
+                @item.Price.ToString("C2")
+            </p>
+            <p>
+                <a href="#" class="btn btn-primary">Add to card</a>
+            </p>
         </div>
-        <p>
-            @item.Price.ToString("C2")
-        </p>
-        <p>
-            <a href="#" class="btn btn-primary">Add to card</a>
-        </p>
-    </div>
+    }
+    @if (@Model.TotalPages > 1)
+    {
+        <div class="d-flex w-100 justify-content-center">
+            <pagination page-count="@Model.TotalPages" page-target="/products/@Model.Category"
+                        page-number="@Model.PageNumber" page-range="@Model.PageRange"></pagination>
+        </div>
     }
 </div>

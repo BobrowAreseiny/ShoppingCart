@@ -16,6 +16,8 @@ namespace ShoppingCart.ViewModel
 
         public int PageSize { get; set; }
 
+        public int PageNumber { get; set; }
+
         public string Category { get; set; }
     }
 }

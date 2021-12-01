@@ -57,8 +57,8 @@ namespace ShoppingCart
                     defaults: new { controller="Pages", action="Page" });
 
                 endpoints.MapControllerRoute(
-                    "products",
-                    "products/{categorySlug}",
+                    "Products",
+                    "Products/{categorySlug}",
                     defaults: new { controller = "Products", action = "ProductsByCategory" });
 
                 endpoints.MapControllerRoute(
