@@ -53,20 +53,3 @@ else
 {
     <h3 class="display-4 text-center">Your cart is empty.</h3>
 }
-
-<partial name="~/Views/Cart/_PaypalPartial.cshtml" for="CartItems" />
-
-@section Scripts {
-    <script>
-        $(function () {
-            $("a.checkout").click(function (e) {
-                e.preventDefault();
-                $("div.cartbg").removeClass("d-none");
-
-                $.get("cart/clear", {}, function () {
-                    $("form.paypalform").submit();
-                });
-            });
-        });
-    </script>
-}
