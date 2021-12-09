@@ -52,7 +52,7 @@ namespace ShoppingCart.Controllers
 
             if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
             {
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }//Остаемся на странице при добавлении товара
 
             return ViewComponent("SmallCart");
