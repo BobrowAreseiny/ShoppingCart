@@ -50,7 +50,12 @@ namespace ShoppingCart.Controllers
             }
             HttpContext.Session.SetJson("Cart", cart);
 
-            return RedirectToAction("Index");
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+            {
+                return RedirectToAction("Index");
+            }//Остаемся на странице при добавлении товара
+
+            return ViewComponent("SmallCart");
         }
 
         // GET / cart / decrease
@@ -106,7 +111,9 @@ namespace ShoppingCart.Controllers
         {
             HttpContext.Session.Remove("Cart");
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Page","Pages");
+            //return Redirect("/");
+            return Redirect(Request.Headers["Referer"].ToString());
         }
     }
 }

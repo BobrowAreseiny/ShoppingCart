@@ -1,4 +1,4 @@
-﻿@model ShoppingCart.ViewModel.CartViewModel
+﻿@model CartViewModel
 
 @{
     ViewData["Title"] = "Cart Overview";
@@ -28,7 +28,7 @@
                     <a asp-Action="Remove" asp-route-id="@item.ProductID" class="btn btn-sm btn-danger">Remove</a>
                 </td>
                 <td>@item.Price.ToString("C2")</td>
-                <td>@Model.CartItems.Where(x=> x.ProductID == item.ProductID).Sum(x => x.Quantity * x.Price).ToString("C2")</td>
+                <td>@Model.CartItems.Where(x => x.ProductID == item.ProductID).Sum(x => x.Quantity * x.Price).ToString("C2")</td>
             </tr>
         }
         <tr>
@@ -46,3 +46,5 @@ else
 {
     <h3 class="display-4 text-center">Your cart is empty.</h3>
 }
+
+<partial name="~/Views/Cart/_PaypalPartial.cshtml" for="CartItems"/>   
