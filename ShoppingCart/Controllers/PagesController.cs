@@ -16,7 +16,6 @@ namespace ShoppingCart.Controllers
         public PagesController(ApplicationDbContext context)
         {
             _context = context;
-
         }
 
         //Get/ or /slug
