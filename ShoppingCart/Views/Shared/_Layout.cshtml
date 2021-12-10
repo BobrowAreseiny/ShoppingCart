@@ -18,16 +18,28 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
-                       <li class="nav-item">
-                           <a asp-controller="Account" asp-action="Login" class="btn btn-success">Log In</a>
-                       </li> 
-                        <li class="nav-item ml-1">
-                            <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Register</a>
-                       </li>
+                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Edit" class="btn btn-danger">My Account</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Logout" class="btn btn-primary">Log Out</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Account" asp-action="Login" class="btn btn-success">Log In</a>
+                            </li>
+                            <li class="nav-item ml-1">
+                                <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Register</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav flex-grow-1">
                         @await Component.InvokeAsync("MainMenu")
-                    </ul>
+                    </ul>                   
                 </div>
             </div>
         </nav>
@@ -37,9 +49,13 @@
             <div class="row">
                 <div class="col-3">
                     @await Component.InvokeAsync("Categories")@*Спсисок категорий*@
-                    <div class="smallcart bg-success mt-3 p-3 text-white">
-                        @await Component.InvokeAsync("SmallCart") @*Динамический список*@
-                    </div>
+                    @if (User?.Identity?.IsAuthenticated ?? true)
+                    {
+
+                        <div class="smallcart bg-success mt-3 p-3 text-white">
+                            @await Component.InvokeAsync("SmallCart") @*Динамический список*@
+                        </div>
+                    }
                 </div>
                 <div class="col">
                     @RenderBody()

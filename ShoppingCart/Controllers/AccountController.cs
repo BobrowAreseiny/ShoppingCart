@@ -98,5 +98,15 @@ namespace ShoppingCart.Controllers
 
             return Redirect("/");
         }
+
+        // GET / account / edit
+        public async Task<IActionResult> Edit()
+        {
+            AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+
+            User user = new User(appUser);
+
+            return View(user);
+        }
     }
 }
