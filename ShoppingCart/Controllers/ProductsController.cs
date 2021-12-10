@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoppingCart.Infrastructure;
 using ShoppingCart.Models;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingCart.Controllers
 {
-   
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
