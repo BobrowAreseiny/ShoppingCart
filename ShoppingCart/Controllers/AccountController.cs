@@ -14,13 +14,11 @@ namespace ShoppingCart.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _singInManager;
-        private IPasswordHasher<AppUser> _passwordHasher;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> singInManager,IPasswordHasher<AppUser> passwordHasher)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> singInManager)
         {
             _userManager = userManager;
             _singInManager = singInManager;
-            _passwordHasher = passwordHasher;
         }
 
         // GET /account / register
@@ -106,36 +104,9 @@ namespace ShoppingCart.Controllers
         {
             AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            UserEdit user = new UserEdit(appUser);
+            User user = new User(appUser);
 
             return View(user);
-        }
-
-
-        // PAst / account / edit
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UserEdit user)
-        {
-            AppUser appUser = await _userManager.FindByNameAsync(User.Identity.Name);
-
-            if (ModelState.IsValid)
-            {
-                appUser.Email = user.Email;
-                if(user.Password != null)
-                {
-                    appUser.PasswordHash = _passwordHasher.HashPassword(appUser, user.Password);
-                }
-
-                IdentityResult result = await _userManager.UpdateAsync(appUser);
-                if (result.Succeeded)
-                {
-                    TempData["Success"] = "Your information has been edited!";
-                }
-            }
-            return View();
         }
     }
 }

@@ -17,5 +17,14 @@ namespace ShoppingCart.Models
 
         [DataType(DataType.Password), Required, MinLength(4,ErrorMessage ="Minimum length is 4")]
         public string Password { get; set; }
+
+        public User() { }
+
+        public User(AppUser appUser)
+        {
+            UserName = appUser.UserName;
+            Email = appUser.Email;
+            Password = appUser.PasswordHash;
+        }
     }
 }
