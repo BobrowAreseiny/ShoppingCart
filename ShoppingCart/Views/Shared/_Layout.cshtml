@@ -20,22 +20,29 @@
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
                         @if (User?.Identity?.IsAuthenticated ?? false)
                         {
-                            <li class="nav-item">
-                                <a asp-controller="Account" asp-action="Edit" class="btn btn-danger">My Account</a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="Account" asp-action="Logout" class="btn btn-primary">Log Out</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a asp-controller="Account" asp-action="Login" class="btn btn-success">Log In</a>
-                            </li>
-                            <li class="nav-item ml-1">
-                                <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Register</a>
-                            </li>
-                        }
+                            @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                            {
+                                <li class="nav-item ml-1">
+                                    <a asp-area="Admin" asp-controller="Pages" asp-action="Index" class="btn btn-success">Admin Area</a>
+                                </li>
+                            }
+                        <li class="nav-item ml-1">
+                            <a asp-controller="Account" asp-action="Edit" class="btn btn-danger">My Account</a>
+                        </li>
+                        <li class="nav-item ml-1">
+                            <a asp-controller="Account" asp-action="Logout" class="btn btn-primary">Log Out</a>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item ml-1">
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-success">Log In</a>
+                        </li>
+                        <li class="nav-item ml-1">
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-primary">Register</a>
+                        </li>
+                    }
                     </ul>
                     <ul class="navbar-nav flex-grow-1">
                         @await Component.InvokeAsync("MainMenu")

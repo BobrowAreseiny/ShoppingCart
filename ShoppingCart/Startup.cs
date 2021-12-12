@@ -34,6 +34,8 @@ namespace ShoppingCart
                 options.IdleTimeout = TimeSpan.FromDays(2);
             });
 
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));// ад
